@@ -3,11 +3,7 @@ public class Solution {
         if (grid == null ) {
             return 0;
         }
-        if(grid.length == 1){
-            if(grid[0][0] == 1){
-                return 1;
-            }
-        }
+        
 
         int noOfIslands = 0;
         int rows = grid.length;
