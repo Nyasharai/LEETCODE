@@ -1,43 +1,29 @@
-public class Solution {
-    public int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0 || grid[0].length == 0) {
-            return 0;
-        }
-        
-        int rows = grid.length;
-        int cols = grid[0].length;
-        int islandCount = 0;
-        
-        // Iterate through each cell in the grid
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (grid[i][j] == '1') { // Found new island
-                    islandCount++;
-                    dfs(grid, i, j); // DFS to mark all connected land cells
+class Solution {
+
+    static void dfs(char arr[][], int i, int j){
+        if(i<0 || j<0 || i>=arr.length || j>=arr[0].length) return;
+
+        if(arr[i][j]=='0') return;
+
+        arr[i][j] = '0';
+        dfs(arr,i,j+1);
+        dfs(arr,i,j-1);
+        dfs(arr,i-1,j);
+        dfs(arr,i+1,j);
+    }
+    public int numIslands(char[][] arr) {
+        int ans = 0;
+        int n = arr.length;
+        int m = arr[0].length;
+
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(arr[i][j]=='1'){
+                    dfs(arr,i,j);
+                    ans++;
                 }
             }
         }
-        
-        return islandCount;
-    }
-    
-    // DFS method to mark all connected land cells as visited
-    private void dfs(char[][] grid, int i, int j) {
-        int rows = grid.length;
-        int cols = grid[0].length;
-        
-        // Base cases for recursion
-        if (i < 0 || j < 0 || i >= rows || j >= cols || grid[i][j] == '0') {
-            return;
-        }
-        
-        // Mark current cell as visited
-        grid[i][j] = '0';
-        
-        // DFS on adjacent cells
-        dfs(grid, i + 1, j); // down
-        dfs(grid, i - 1, j); // up
-        dfs(grid, i, j + 1); // right
-        dfs(grid, i, j - 1); // left
+        return ans;
     }
 }
