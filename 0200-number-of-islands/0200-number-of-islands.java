@@ -1,7 +1,12 @@
 public class Solution {
     public int numIslands(char[][] grid) {
-        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+        if (grid == null ) {
             return 0;
+        }
+        if(grid.length == 1){
+            if(grid[0][0] == 1){
+                return 1;
+            }
         }
 
         int noOfIslands = 0;
