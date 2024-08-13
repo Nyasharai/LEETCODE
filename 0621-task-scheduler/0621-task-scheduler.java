@@ -1,17 +1,23 @@
 class Solution {
     public int leastInterval(char[] tasks, int n) {
-        int[] freq = new int[26];
-        for (char task : tasks) {
-            freq[task - 'A']++;
+        Map<Character, Integer> taskCount = new HashMap<>();
+        for(char task : tasks){
+            taskCount.put(task, taskCount.getOrDefault(task,0) + 1);
         }
-        Arrays.sort(freq);
-        int chunk = freq[25] - 1;
-        int idle = chunk * n;
-
-        for (int i = 24; i >= 0; i--) {
-            idle -= Math.min(chunk, freq[i]);
+        
+        int maxFreq = 0;
+        int maxFreqCount = 0;
+        for(int freq : taskCount.values()){
+            if(freq > maxFreq){
+                maxFreq = freq;
+                maxFreqCount = 1;
+            }
+            else if(freq == maxFreq){
+                maxFreqCount++;
+            }
         }
-
-        return idle < 0 ? tasks.length : tasks.length + idle;
+        
+        int minInterval = (maxFreq - 1) * (n + 1) + maxFreqCount;
+        return Math.max(minInterval, tasks.length);
     }
 }
