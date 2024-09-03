@@ -1,25 +1,23 @@
 class Solution {
-    public int getLucky(String s, int k) {
+    private String helper(String s) {
         StringBuilder sb = new StringBuilder();
-        int sum = 0;
-        int n = s.length();
-        for(int i=0;i<n;i++){
-            sb.append(((int)(s.charAt(i)) - 96));
+        for (int i = 0; i < s.length(); i++) {
+            sb.append((s.charAt(i) - 'a') + 1);
         }
-        for(int i=0;i<sb.length();i++){
-            sum += ((sb.charAt(i))-'0');
-        }
-        k--;
-        while(k!=0){
-            int num = sum;
-            sum = 0;
-            while(num!=0){
-                int a = num%10;
-                num/=10;
-                sum += a;
+        return sb.toString();
+    }
+
+    public int getLucky(String s, int k) {
+        String str = helper(s);
+
+        int res = 0;
+        while (k-- != 0) {
+            res = 0;
+            for (int i = 0; i < str.length(); i++) {
+                res += (str.charAt(i) - '0');
             }
-            k--;
+            str = Integer.toString(res);
         }
-        return sum;
+        return res;
     }
 }
